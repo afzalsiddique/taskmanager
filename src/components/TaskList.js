@@ -32,13 +32,16 @@ const TaskList = () => {
     if (selectedFilter === 'all') {
       return tasks;
     } else if (selectedFilter === 'overdue') {
-      return tasks.filter((task) => isTaskOverdue(task.dueDate));
+      return tasks.filter((task) => isTaskOverdue(task));
     } else {
       return tasks.filter((task) => task.status === selectedFilter);
     }
   };
 
-  const isTaskOverdue = (dueDate) => {
+  const isTaskOverdue = (task) => {
+    if (task.status==='completed')
+      return false
+    const dueDate=task.dueDate;
     const currentDate = new Date();
     return currentDate > new Date(dueDate);
   };
@@ -56,7 +59,7 @@ const TaskList = () => {
         {filterTasks().map((task) => (
           <li key={task._id}>
             <Link to={`/tasks/${task._id}`}>{task.title}</Link>
-            {isTaskOverdue(task.dueDate) && <span style={{ color: 'red' }}> - Overdue</span>}
+            {isTaskOverdue(task) && <span style={{ color: 'red' }}> - Overdue</span>}
             {task.status === 'ongoing' && (
               <button onClick={() => handleMarkAsCompleted(task._id)}>Mark as Completed</button>
             )}
