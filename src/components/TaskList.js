@@ -50,9 +50,6 @@ const TaskList = () => {
           <li key={task._id}>
             <Link to={`/tasks/${task._id}`}>{task.title}</Link>
             {isTaskOverdue(task) && <span style={{ color: 'red' }}> - Overdue</span>}
-            {/*{task.status === 'ongoing' && (*/}
-            {/*  <button onClick={() => handleMarkAsCompleted(task._id)}>Mark as Completed</button>*/}
-            {/*)}*/}
             <MarkAsCompleted task={task}/>
           </li>
         ))}
