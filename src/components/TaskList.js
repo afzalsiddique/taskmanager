@@ -25,6 +25,10 @@ const TaskList = () => {
         console.error('Error marking task as completed:', error);
       });
   };
+    const isTaskOverdue = (dueDate) => {
+    const currentDate = new Date();
+    return currentDate > new Date(dueDate);
+  };
 
   return (
     <div>
@@ -33,10 +37,9 @@ const TaskList = () => {
         {tasks.map((task) => (
           <li key={task._id}>
             <Link to={`/tasks/${task._id}`}>{task.title}</Link>
+             {isTaskOverdue(task.dueDate) && <span style={{ color: 'red' }}> - Overdue</span>}
             {task.status==='ongoing' && (
-              <button onClick={() => handleMarkAsCompleted(task._id)}>
-                Mark as Completed
-              </button>
+              <button onClick={() => handleMarkAsCompleted(task._id)}> Mark as Completed </button>
             )}
           </li>
         ))}
