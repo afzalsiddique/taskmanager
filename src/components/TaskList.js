@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import MarkAsCompleted from "./MarkAsCompleted";
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
@@ -8,7 +9,7 @@ const TaskList = () => {
 
   useEffect(() => {
     fetchTasks();
-  }, []);
+  }, [tasks]);
 
   const fetchTasks = () => {
     axios.get('http://localhost:5000/api/tasks').then((response) => {
@@ -16,17 +17,6 @@ const TaskList = () => {
     });
   };
 
-  const handleMarkAsCompleted = (taskId) => {
-    axios
-      .put(`http://localhost:5000/api/tasks/${taskId}`, { status: 'completed' })
-      .then((response) => {
-        console.log('Task marked as completed:', response.data);
-        fetchTasks(); // Refresh the task list after update
-      })
-      .catch((error) => {
-        console.error('Error marking task as completed:', error);
-      });
-  };
 
   const filterTasks = () => {
     if (selectedFilter === 'all') {
@@ -60,9 +50,10 @@ const TaskList = () => {
           <li key={task._id}>
             <Link to={`/tasks/${task._id}`}>{task.title}</Link>
             {isTaskOverdue(task) && <span style={{ color: 'red' }}> - Overdue</span>}
-            {task.status === 'ongoing' && (
-              <button onClick={() => handleMarkAsCompleted(task._id)}>Mark as Completed</button>
-            )}
+            {/*{task.status === 'ongoing' && (*/}
+            {/*  <button onClick={() => handleMarkAsCompleted(task._id)}>Mark as Completed</button>*/}
+            {/*)}*/}
+            <MarkAsCompleted task={task}/>
           </li>
         ))}
       </ul>

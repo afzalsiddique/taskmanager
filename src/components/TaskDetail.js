@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import MarkAsCompleted from "./MarkAsCompleted";
 
 const TaskDetail = ({ taskId }) => {
   const [task, setTask] = useState(null);
@@ -21,6 +22,7 @@ const TaskDetail = ({ taskId }) => {
       <p>Description: {task.description}</p>
       <p>Due Date: {task.dueDate}</p>
       <p>Status: {task.status}</p>
+      <MarkAsCompleted task={task}/>
     </div>
   );
 };
