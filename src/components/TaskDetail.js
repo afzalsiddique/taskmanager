@@ -5,7 +5,7 @@ const TaskDetail = ({ taskId }) => {
   const [task, setTask] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/tasks/${taskId}`).then((response) => {
+    axios.get(`http://localhost:5000/api/tasks/${taskId}`).then((response) => {
       setTask(response.data);
     });
   }, [taskId]);

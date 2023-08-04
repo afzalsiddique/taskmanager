@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
@@ -15,7 +16,9 @@ const TaskList = () => {
       <h1>Task List</h1>
       <ul>
         {tasks.map((task) => (
-          <li key={task._id}>{task.title}</li>
+          <li key={task._id}>
+            <Link to={`/tasks/${task._id}`}>{task.title}</Link>
+          </li>
         ))}
       </ul>
     </div>
