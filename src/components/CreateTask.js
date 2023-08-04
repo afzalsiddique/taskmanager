@@ -24,15 +24,13 @@ const CreateTask = () => {
   return (
     <div>
       <h1>Create Task</h1>
-      <form onSubmit={handleSubmit}>
+      <form>
         <input
           type="text"
           placeholder="Title"
           value={title}
-          onChange={(e) =>{
-             setTitle(e.target.value)
-            console.log(title)
-          }}
+          onChange={(e) => setTitle(e.target.value)
+          }
         />
         <input
           type="text"
@@ -41,12 +39,11 @@ const CreateTask = () => {
           onChange={(e) => setDescription(e.target.value)}
         />
         <input
-          // type="date"
-          type="text"
+          type="date"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
         />
-        <button type="submit">Create Task</button>
+        <button type="button" onClick={handleSubmit}>Create Task</button>
       </form>
     </div>
   );

@@ -5,7 +5,7 @@ const TaskList = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/tasks').then((response) => {
+    axios.get('http://localhost:5000/api/tasks').then((response) => {
       setTasks(response.data);
     });
   }, []);
