@@ -33,7 +33,7 @@ const TaskList = () => {
         {tasks.map((task) => (
           <li key={task._id}>
             <Link to={`/tasks/${task._id}`}>{task.title}</Link>
-            {!task.completed && (
+            {task.status==='ongoing' && (
               <button onClick={() => handleMarkAsCompleted(task._id)}>
                 Mark as Completed
               </button>
