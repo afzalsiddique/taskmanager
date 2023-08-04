@@ -2,9 +2,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const connectDB = require('./db');
+const cors = require('cors');
 const routes = require('./routes');
-
 const app = express();
+app.use(cors());
 
 // Connect to MongoDB
 connectDB();
@@ -16,7 +17,7 @@ app.use(bodyParser.json());
 app.use('/api', routes);
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });

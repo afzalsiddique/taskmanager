@@ -9,7 +9,7 @@ const CreateTask = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('/api/tasks', { title, description, dueDate })
+      .post('http://localhost:5000/api/tasks', { title, description, dueDate })
       .then((response) => {
         console.log('Task created:', response.data);
         setTitle('');
@@ -29,7 +29,10 @@ const CreateTask = () => {
           type="text"
           placeholder="Title"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) =>{
+             setTitle(e.target.value)
+            console.log(title)
+          }}
         />
         <input
           type="text"
@@ -38,7 +41,8 @@ const CreateTask = () => {
           onChange={(e) => setDescription(e.target.value)}
         />
         <input
-          type="date"
+          // type="date"
+          type="text"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
         />
