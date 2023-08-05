@@ -3,6 +3,8 @@ import axios from 'axios';
 import MarkAsCompleted from "./MarkAsCompleted";
 import LoadingIcon from "./LoadingIcon";
 import OverdueIcon from "./OverdueIcon";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 const TaskDetail = ({ taskId }) => {
   const [task, setTask] = useState(null);
@@ -11,11 +13,15 @@ const TaskDetail = ({ taskId }) => {
     axios.get(`http://localhost:5000/api/tasks/${taskId}`).then((response) => {
       setTask(response.data);
     });
-  }, [task]);
+  }, [taskId, task]);
 
   if (!task) {
     return <LoadingIcon />
   }
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
   return (
     <div style={styles.container}>
@@ -26,13 +32,12 @@ const TaskDetail = ({ taskId }) => {
           <MarkAsCompleted task={task} style={styles.completedIcon} />
         </div>
         <p style={styles.description}>Description: {task.description}</p>
-        <p style={styles.dueDate}>Due Date: {task.dueDate}</p>
-        <p style={styles.status}>Status: {task.status}</p>
+        <p style={styles.dueDate}>Due Date: {formatDate(task.dueDate)}</p>
+        <p style={styles.status}>Status: {task.status} {task.status === 'completed' && <FontAwesomeIcon icon={faCheckCircle} style={styles.greenTickIcon} />}</p>
       </div>
     </div>
   );
 };
-
 const styles = {
   container: {
     display: 'flex',
@@ -79,6 +84,11 @@ const styles = {
   status: {
     fontSize: '16px',
     marginBottom: '10px',
+  },
+    greenTickIcon: {
+    fontSize: '20px',
+    color: 'green',
+    marginLeft: '5px',
   },
 };
 
