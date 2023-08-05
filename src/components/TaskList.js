@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import MarkAsCompleted from "./MarkAsCompleted";
-import LoadingIcon from "./LoadingIcon";
+import LoadingIcon from './LoadingIcon';
+import TaskSummary from "./TaskSummary";
+import {isTaskOverdue} from "../HelperFunctions";
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
@@ -18,7 +18,6 @@ const TaskList = () => {
     });
   };
 
-
   const filterTasks = () => {
     if (selectedFilter === 'all') {
       return tasks;
@@ -29,35 +28,81 @@ const TaskList = () => {
     }
   };
 
-  const isTaskOverdue = (task) => {
-    if (task.status==='completed')
-      return false
-    const dueDate=task.dueDate;
-    const currentDate = new Date();
-    return currentDate > new Date(dueDate);
-  };
 
   return (
-    <div>
-      <h1>Task List</h1>
-      <div>
-        <button onClick={() => setSelectedFilter('all')}>All Tasks</button>
-        <button onClick={() => setSelectedFilter('overdue')}>Overdue</button>
-        <button onClick={() => setSelectedFilter('completed')}>Completed</button>
-        <button onClick={() => setSelectedFilter('ongoing')}>Ongoing</button>
+    <div style={styles.container}>
+      <h1 style={styles.heading}>Task List</h1>
+      <div style={styles.filterButtons}>
+        <button
+          style={selectedFilter === 'all' ? styles.selectedFilterButton : styles.filterButton}
+          onClick={() => setSelectedFilter('all')}
+        >
+          All Tasks
+        </button>
+        <button
+          style={selectedFilter === 'overdue' ? styles.selectedFilterButton : styles.filterButton}
+          onClick={() => setSelectedFilter('overdue')}
+        >
+          Overdue
+        </button>
+        <button
+          style={selectedFilter === 'completed' ? styles.selectedFilterButton : styles.filterButton}
+          onClick={() => setSelectedFilter('completed')}
+        >
+          Completed
+        </button>
+        <button
+          style={selectedFilter === 'ongoing' ? styles.selectedFilterButton : styles.filterButton}
+          onClick={() => setSelectedFilter('ongoing')}
+        >
+          Ongoing
+        </button>
       </div>
-      <ul>
-        {tasks.length===0 && <LoadingIcon/>}
+      <ul style={styles.taskList}>
+        {tasks.length === 0 && (
+            <LoadingIcon />
+        )}
         {filterTasks().map((task) => (
-          <li key={task._id}>
-            <Link to={`/tasks/${task._id}`}>{task.title}</Link>
-            {isTaskOverdue(task) && <span style={{ color: 'red' }}> - Overdue</span>}
-            <MarkAsCompleted task={task}/>
-          </li>
+          <TaskSummary task={task}/>
         ))}
       </ul>
     </div>
   );
+};
+
+const styles = {
+  container: {
+    padding: '20px',
+    fontFamily: 'Arial, sans-serif',
+  },
+  heading: {
+    fontSize: '24px',
+    marginBottom: '20px',
+  },
+  filterButtons: {
+    marginBottom: '20px',
+  },
+  filterButton: {
+    marginRight: '10px',
+    padding: '5px 10px',
+    backgroundColor: '#eee',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  },
+  selectedFilterButton: {
+    marginRight: '10px',
+    padding: '5px 10px',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  },
+  taskList: {
+    listStyle: 'none',
+    padding: 0,
+  },
 };
 
 export default TaskList;
