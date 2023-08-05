@@ -29,6 +29,7 @@ const styles = {
   },
   titleColumn: {
     marginRight: '10px',
+    padding: '1px 100px 1px 1px',
     // overflow: 'hidden', // Truncate text if it overflows
     // textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
