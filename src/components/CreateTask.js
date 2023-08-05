@@ -5,6 +5,8 @@ const CreateTask = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,15 +17,21 @@ const CreateTask = () => {
         setTitle('');
         setDescription('');
         setDueDate('');
+        setSuccessMessage('Task created successfully.');
+        setErrorMessage('');
       })
       .catch((error) => {
         console.error('Error creating task:', error);
+        setSuccessMessage('');
+        setErrorMessage('Error creating task. Please try again.');
       });
   };
 
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>Create Task</h1>
+      {successMessage && <div style={styles.successMessage}>{successMessage}</div>}
+      {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
       <form style={styles.form}>
         <input
           style={styles.input}
@@ -80,6 +88,14 @@ const styles = {
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
+  },
+  successMessage: {
+    color: 'green',
+    marginBottom: '10px',
+  },
+  errorMessage: {
+    color: 'red',
+    marginBottom: '10px',
   },
 };
 
