@@ -20,7 +20,7 @@ const TaskSummary = ({ task }) => {
 const styles = {
   taskItem: {
     display: 'grid',
-    gridTemplateColumns: '3fr 1fr 1fr', // Three columns
+    gridTemplateColumns: '10fr 1fr 1fr', // Three columns
     alignItems: 'center', // Center vertically
     marginBottom: '10px',
     padding: '5px',

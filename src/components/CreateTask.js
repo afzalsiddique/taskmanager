@@ -22,31 +22,65 @@ const CreateTask = () => {
   };
 
   return (
-    <div>
-      <h1>Create Task</h1>
-      <form>
+    <div style={styles.container}>
+      <h1 style={styles.heading}>Create Task</h1>
+      <form style={styles.form}>
         <input
+          style={styles.input}
           type="text"
           placeholder="Title"
           value={title}
-          onChange={(e) => setTitle(e.target.value)
-          }
+          onChange={(e) => setTitle(e.target.value)}
         />
         <input
+          style={styles.input}
           type="text"
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         <input
+          style={styles.input}
           type="date"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
         />
-        <button type="button" onClick={handleSubmit}>Create Task</button>
+        <button type="button" style={styles.button} onClick={handleSubmit}>
+          Create Task
+        </button>
       </form>
     </div>
   );
+};
+
+const styles = {
+  container: {
+    padding: '20px',
+    margin: '0 200px', // Add margin on left and right sides
+    fontFamily: 'Arial, sans-serif',
+  },
+  heading: {
+    fontSize: '24px',
+    marginBottom: '20px',
+  },
+  form: {
+    display: 'grid',
+    gridTemplateColumns: '1fr', // Single column layout
+    gap: '10px',
+  },
+  input: {
+    padding: '5px',
+    fontSize: '16px',
+  },
+  button: {
+    padding: '10px',
+    fontSize: '16px',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  },
 };
 
 export default CreateTask;
