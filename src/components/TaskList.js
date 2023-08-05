@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import LoadingIcon from './LoadingIcon';
-import TaskSummary from "./TaskSummary";
-import {isTaskOverdue} from "../HelperFunctions";
+import TaskSummary from './TaskSummary';
+import { isTaskOverdue } from '../HelperFunctions';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
@@ -27,7 +27,6 @@ const TaskList = () => {
       return tasks.filter((task) => task.status === selectedFilter);
     }
   };
-
 
   return (
     <div style={styles.container}>
@@ -59,12 +58,13 @@ const TaskList = () => {
         </button>
       </div>
       <ul style={styles.taskList}>
-        {tasks.length === 0 && (
+        {tasks.length === 0 ? (
+          <li style={styles.loadingItem}>
             <LoadingIcon />
+          </li>
+        ) : (
+          filterTasks().map((task) => <TaskSummary key={task._id} task={task} />)
         )}
-        {filterTasks().map((task) => (
-          <TaskSummary task={task}/>
-        ))}
       </ul>
     </div>
   );
@@ -74,6 +74,10 @@ const styles = {
   container: {
     padding: '20px',
     fontFamily: 'Arial, sans-serif',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   heading: {
     fontSize: '24px',
@@ -102,6 +106,13 @@ const styles = {
   taskList: {
     listStyle: 'none',
     padding: 0,
+  },
+  loadingItem: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '50px',
+    fontSize: '18px',
   },
 };
 
