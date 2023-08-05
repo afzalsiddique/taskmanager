@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock } from '@fortawesome/free-solid-svg-icons';
 import MarkAsCompleted from './MarkAsCompleted';
-import { isTaskOverdue } from '../HelperFunctions';
+import OverdueIcon from "./OverdueIcon";
 
 const TaskSummary = ({ task }) => {
   return (
@@ -13,12 +11,8 @@ const TaskSummary = ({ task }) => {
           {task.title}
         </Link>
       </div>
-      <div style={styles.iconColumn}>
-        {isTaskOverdue(task) && <FontAwesomeIcon icon={faClock} style={styles.overdueIcon} />}
-      </div>
-      <div style={styles.completeColumn}>
-        <MarkAsCompleted task={task} />
-      </div>
+      <OverdueIcon task={task}/>
+      <MarkAsCompleted task={task} />
     </li>
   );
 };
@@ -44,10 +38,10 @@ const styles = {
     justifyContent: 'center', // Center horizontally
     marginRight: '10px',
   },
-  completeColumn: {
-    display: 'flex',
-    justifyContent: 'flex-end', // Align to the right
-  },
+  // completeColumn: {
+  //   display: 'flex',
+  //   justifyContent: 'flex-end', // Align to the right
+  // },
   taskLink: {
     textDecoration: 'none',
     color: '#007bff',
