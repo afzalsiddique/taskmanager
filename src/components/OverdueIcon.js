@@ -6,9 +6,9 @@ import {faClock} from "@fortawesome/free-solid-svg-icons";
 const OverdueIcon = ({task}) => {
   return (
     <>
-      <div style={styles.iconColumn}>
+      <span style={styles.iconColumn}>
         {isTaskOverdue(task) && <FontAwesomeIcon icon={faClock} style={styles.overdueIcon} />}
-      </div>
+      </span>
     </>
   )
 }
@@ -16,6 +16,7 @@ const OverdueIcon = ({task}) => {
 const styles = {
   overdueIcon: {
     color: 'red',
+    marginRight: '10px',
   },
 }
 export default OverdueIcon;
