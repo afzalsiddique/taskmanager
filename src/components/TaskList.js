@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import MarkAsCompleted from "./MarkAsCompleted";
+import LoadingIcon from "./LoadingIcon";
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
@@ -46,6 +47,7 @@ const TaskList = () => {
         <button onClick={() => setSelectedFilter('ongoing')}>Ongoing</button>
       </div>
       <ul>
+        {tasks.length===0 && <LoadingIcon/>}
         {filterTasks().map((task) => (
           <li key={task._id}>
             <Link to={`/tasks/${task._id}`}>{task.title}</Link>
