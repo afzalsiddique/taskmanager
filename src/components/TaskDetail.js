@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MarkAsCompleted from "./MarkAsCompleted";
+import LoadingIcon from "./LoadingIcon";
 
 const TaskDetail = ({ taskId }) => {
   const [task, setTask] = useState(null);
@@ -12,7 +13,7 @@ const TaskDetail = ({ taskId }) => {
   }, [taskId]);
 
   if (!task) {
-    return <div>Loading...</div>;
+    return <div><LoadingIcon/></div>
   }
 
   return (
