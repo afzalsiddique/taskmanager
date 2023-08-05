@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import ErrorMessage from "./ErrorMessage";
+import SuccessMessage from "./SuccessMessage";
 
 const CreateTask = () => {
   const [title, setTitle] = useState('');
@@ -30,8 +32,8 @@ const CreateTask = () => {
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>Create Task</h1>
-      {successMessage && <div style={styles.successMessage}>{successMessage}</div>}
-      {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
+      {successMessage && <SuccessMessage message={successMessage}/>}
+      {errorMessage && <ErrorMessage message={errorMessage}/>}
       <form style={styles.form}>
         <input
           style={styles.input}
@@ -88,14 +90,6 @@ const styles = {
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
-  },
-  successMessage: {
-    color: 'green',
-    marginBottom: '10px',
-  },
-  errorMessage: {
-    color: 'red',
-    marginBottom: '10px',
   },
 };
 

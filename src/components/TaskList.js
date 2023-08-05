@@ -3,19 +3,27 @@ import axios from 'axios';
 import LoadingIcon from './LoadingIcon';
 import TaskSummary from './TaskSummary';
 import { isTaskOverdue } from '../HelperFunctions';
+import ErrorMessage from "./ErrorMessage";
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     fetchTasks();
   }, [tasks]);
 
   const fetchTasks = () => {
-    axios.get('http://localhost:5000/api/tasks').then((response) => {
+    axios.get('http://localhost:5000/api/tasks')
+      .then((response) => {
       setTasks(response.data);
-    });
+      setErrorMessage('');
+    })
+      .catch((error)=>{
+        console.error('Error fetching tasks:', error);
+        setErrorMessage("Can't Load Task. Try again.");
+      });
   };
 
   const filterTasks = () => {
@@ -58,13 +66,12 @@ const TaskList = () => {
         </button>
       </div>
       <ul style={styles.taskList}>
-        {tasks.length === 0 ? (
+        {tasks.length === 0 && errorMessage==='' &&
           <li style={styles.loadingItem}>
             <LoadingIcon />
-          </li>
-        ) : (
-          filterTasks().map((task) => <TaskSummary key={task._id} task={task} />)
-        )}
+          </li>}
+        {errorMessage && <ErrorMessage message={errorMessage}/>}
+        { filterTasks().map((task) => <TaskSummary key={task._id} task={task} />) }
       </ul>
     </div>
   );
