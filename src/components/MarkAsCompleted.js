@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const  MarkAsCompleted= ({task}) => {
 
@@ -16,7 +18,7 @@ const  MarkAsCompleted= ({task}) => {
   return (
     <>
       {task.status === 'ongoing' && (
-        <button onClick={() => handleMarkAsCompleted(task._id)}>Mark as Completed</button>
+        <button onClick={() => handleMarkAsCompleted(task._id)}> <FontAwesomeIcon icon={faCheck} /> </button>
       )}
     </>
   )
