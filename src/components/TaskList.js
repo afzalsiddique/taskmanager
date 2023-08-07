@@ -12,7 +12,7 @@ const TaskList = () => {
 
   useEffect(() => {
     fetchTasks();
-  }, [tasks]);
+  }, [tasks, selectedFilter]);
 
   const fetchTasks = () => {
     axios.get('http://localhost:5000/api/tasks')
