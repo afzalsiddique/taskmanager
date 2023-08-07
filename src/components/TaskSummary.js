@@ -19,6 +19,7 @@ const TaskSummary = ({ task }) => {
 
 const styles = {
   taskItem: {
+    width: "400px",
     display: 'grid',
     gridTemplateColumns: '10fr 1fr 1fr', // Three columns
     alignItems: 'center', // Center vertically
