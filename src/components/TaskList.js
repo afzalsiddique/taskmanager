@@ -4,6 +4,7 @@ import LoadingIcon from './LoadingIcon';
 import TaskSummary from './TaskSummary';
 import { isTaskOverdue } from '../HelperFunctions';
 import ErrorMessage from "./ErrorMessage";
+import SuccessMessage from "./SuccessMessage";
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
@@ -71,6 +72,7 @@ const TaskList = () => {
             <LoadingIcon />
           </li>}
         {errorMessage && <ErrorMessage message={errorMessage}/>}
+        {filterTasks().length===0 && errorMessage==='' && <SuccessMessage message={"No items to show"}/> }
         { filterTasks().map((task) => <TaskSummary key={task._id} task={task} />) }
       </ul>
     </div>
